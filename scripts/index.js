@@ -153,7 +153,10 @@ var StringToNumb = function () {
     'quattuordecillion': 1e45
   };
 
-  this.number = []; this.large = 0; this.small = 0; this.data = [];
+  this.number = [];
+  this.large = 0;
+  this.small = 0;
+  this.data = [];
 };
 StringToNumb.prototype.clear = function () {
   // console.log(this);
@@ -190,13 +193,10 @@ function convertIt (test) { // eslint-disable-line no-unused-vars
   } else {
     input = test;
   }
-  // console.log(input);
   var StringToNumber = new StringToNumb();
-  // var input = document.getElementById('input2').value;
   StringToNumber.splitter(input);
   StringToNumber.clear();
   StringToNumber.conversion();
   document.getElementById('output2').innerHTML = StringToNumber.large + StringToNumber.small;
   return StringToNumber.large + StringToNumber.small;
 }
-// document.getElementById('b2').addEventListener('click', convertIt);
