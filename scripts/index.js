@@ -1,4 +1,3 @@
-
 var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 var mid = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
 var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']; ;
@@ -9,51 +8,46 @@ function checkInput (test) { // eslint-disable-line no-unused-vars
   } else {
     text = test;
   }
-  // console.log(text);
   var out = [];
   document.getElementById('output').innerHTML = '';
   if (text !== '') {
-    var statement = text.split(/\s+/g);
-    // console.log(statement);
+    var statement = text.split(/\d+/g);
     var numb = '';
     numb = text.match(/\d+/g) ? text.match(/\d+/g) : '';
-    // console.log(numb);
-    // out.push(numb.forEach(find));
     var i;
     for (i = 0; i < numb.length; i++) {
       out.push(find(numb[i]));
     }
   }
   var word = '';
-  var j = 0;
-  // console.log(out);
   for (i = 0; i < statement.length; i++) {
-    if (isNaN(Number(statement[i]))) {
-      word = word + statement[i] + ' ';
-    } else {
-      word = word + out[j].trim() + ' ';
-      // console.log("j: ",j)
-      j++;
+  	if(out[i]!==undefined){
+    	word=word+statement[i]+out[i].trim();
     }
+    else{
+    	word=word+statement[i];
+    }    
   }
-  // console.log(word);
+    word=word.replace("onest","first");
+    word=word.replace("twond","second");
+    word=word.replace("onest","first");
+    word=word.replace("threerd","third");
+    word=word.replace("fiveth","fifth");
+    word=word.replace("nineth","ninth");
   document.getElementById('output').innerHTML = word;
   return (word);
 }
 function find (text) {
   var tex = '';
   if (Number(text) === 0) {
-    // document.getElementById('output').innerHTML += ' zero';
     tex = 'zero';
-    // document.getElementById('output').innerHTML += '<br />' + tex;
     return tex;
   }
   if (text.length > 48) {
-    // document.getElementById('output').innerHTML += 'Out of Limit';
+    tex='Out of Limit';
     return tex;
   }
   var num = text;
-  // console.log( numb[i]);
   var j = 0;
   while (num.length > 0) {
     var ex = 0;
@@ -61,12 +55,10 @@ function find (text) {
       ex = 1;
     }
     var last = num.substr(num.length - 3 + ex);
-    // console.log( last);
     tex = convert(last, j) + tex;
     num = num.substr(0, num.length - 3);
     j++;
   }
-  // document.getElementById('output').innerHTML += '<br />' + tex;
   return tex;
 }
 function convert (last, j) {
@@ -159,7 +151,6 @@ var StringToNumb = function () {
   this.data = [];
 };
 StringToNumb.prototype.clear = function () {
-  // console.log(this);
   for (var i = 0; i < this.data.length; i++) {
     if (this.Values.hasOwnProperty(this.data[i]) || this.Multiply.hasOwnProperty(this.data[i])) {
       this.number.push(this.data[i]);
