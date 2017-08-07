@@ -4,15 +4,14 @@ var mid = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
 var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']; ;
 var rest = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion'];
 function checkInput (test) { // eslint-disable-line no-unused-vars
-  if(test===undefined){
+  if (test === undefined) {
     var text = document.getElementById('input').value;
-  }
-  else{
-    text=test;
+  } else {
+    text = test;
   }
   document.getElementById('output').innerHTML = '';
   if (text !== '') {
-    var out=find(text);
+    var out = find(text);
   }
   return out;
 }
@@ -136,11 +135,10 @@ var Multiply = {
 var number, large, small, input;
 
 function stringToNum (test) { // eslint-disable-line no-unused-vars
-  if(test===undefined){
+  if (test === undefined) {
     input = document.getElementById('input2').value;
-  }
-  else{
-   input=test;
+  } else {
+    input = test;
   }
   var data = input.toLowerCase().split(/\s+/);
   large = 0;
