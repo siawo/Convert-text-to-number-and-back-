@@ -1,61 +1,86 @@
+
 var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 var mid = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
 var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']; ;
-var rest = ['', 'thousand', 'million', 'billion'];
+var rest = ['', 'thousand', 'million', 'billion','trillion','quadrillion','quintillion','sextillion','septillion','octillion','nonillion','decillion','undecillion','duodecillion','tredecillion','quattuordecillion'];
 function checkInput () { // eslint-disable-line no-unused-vars
   var text = document.getElementById('input').value;
-  var texts = document.getElementById('texts').checked;
-  var numbers = document.getElementById('numbers').checked;
   document.getElementById('output').innerHTML = '';
-  if (text !== '' && (texts || numbers)) {
-    find(text, texts, numbers);
+  if (text !== '') {
+    find(text);
   }
 }
-function find (text, texts, numbers) {
+function find (text) {
   var numb = text.match(/\d+/g);
+  //console.log(numb);
   for (var i = 0; i < numb.length; i++) {
+  	var tex = '';
     if (Number(numb[i]) === 0) {
-      document.getElementById('output').innerHTML += ' zero';
-      i++;
+      //document.getElementById('output').innerHTML += ' zero';
+      tex='zero';
+      document.getElementById('output').innerHTML += '<br />' + tex;
+      continue;
+
     }
-    if (numb[i].length > 12) {
-      i++;
+    if (numb[i].length > 48) {
+    	document.getElementById('output').innerHTML += 'Out of Limit';
+      continue;
     }
     var num = numb[i];
+    //console.log( numb[i]);
     var j = 0;
-    var tex = '';
-    while (num > 0) {
-      var last = num % 1000;
-      tex = convert(last, j) + ' ' + tex;
-      num = Math.floor(num / 1000);
+    while (num.length > 0) {
+    	var ex=0;
+    	if(num.length===2)
+    	{
+    		ex=1;
+    	}
+      var last = num.substr(num.length-3 + ex);
+      //console.log( last);
+      tex = convert(last, j) + tex;
+      num = num.substr(0,num.length-3);
       j++;
     }
     document.getElementById('output').innerHTML += '<br />' + tex;
   }
+  return tex;
 }
 function convert (last, j) {
   var text = '';
+  last=Number(last);
   while (last > 0) {
     if (last > 99) {
       var digit = Math.floor(last / 100);
       text += ' ' + ones[digit] + ' hundred';
-      last = Math.round(((last / 100) - digit) * 100);
+      last = (last % 100) ;
     } else if (last >= 20 && last <= 99) {
+    	if (text!=="" && j===0)
+    	{
+    		text+=" and";
+    	}
       digit = Math.floor(last / 10);
       text += ' ' + tens[digit];
-      last = Math.round((last / 10 - digit) * 10);
-      console.log(last, digit, text);
-    } else {
-      if (last < 20 && last > 10) {
+      last = last%10;
+      text += ' ' + ones[last];
+       last = 0;
+    } else if (last < 20 && last > 10) {
+    	if (text!=="" && j===0)
+    	{
+    		text+=" and";
+    	}
         text += ' ' + mid[last - 10];
-        console.log(last, digit, text);
-        last = 0;
-      } else {
-        text += ' ' + ones[last];
         last = 0;
       }
-    }
+      else
+      {
+      	text += ' ' + ones[last];
+       last = 0;
+      }   
   }
-  text += ' ' + rest[j];
+  if(text!=='')
+  {	
+  	text += ' ' + rest[j];
+  }
   return text;
 }
+
