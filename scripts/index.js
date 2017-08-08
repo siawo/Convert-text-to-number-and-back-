@@ -217,6 +217,7 @@ function convertIt (test) { // eslint-disable-line no-unused-vars
   // console.log(word);
 
   document.getElementById('output2').innerHTML = word;
+  return word;
 }
 
 function conversion (each) {
