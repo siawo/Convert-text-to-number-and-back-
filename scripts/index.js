@@ -187,7 +187,11 @@ function convertIt (test) { // eslint-disable-line no-unused-vars
   var StringToNumber = new StringToNumb();
   StringToNumber.splitter(input);
   StringToNumber.clear();
+  for (var i = 0; i < StringToNumber.data.length; i++) {
+    StringToNumber.data[i];
+  }
+  StringToNumber.data
   StringToNumber.conversion();
-  document.getElementById('output2').innerHTML = StringToNumber.large + StringToNumber.small;
+  document.getElementById('output2').innerHTML += StringToNumber.large + StringToNumber.small;
   return StringToNumber.large + StringToNumber.small;
 }
