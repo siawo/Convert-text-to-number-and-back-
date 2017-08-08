@@ -1,4 +1,3 @@
-
 var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 var mid = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
 var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']; ;
@@ -9,51 +8,45 @@ function checkInput (test) { // eslint-disable-line no-unused-vars
   } else {
     text = test;
   }
-  // console.log(text);
   var out = [];
   document.getElementById('output').innerHTML = '';
   if (text !== '') {
-    var statement = text.split(/\s+/g);
-    // console.log(statement);
+    var statement = text.split(/\d+/g);
     var numb = '';
     numb = text.match(/\d+/g) ? text.match(/\d+/g) : '';
-    // console.log(numb);
-    // out.push(numb.forEach(find));
     var i;
     for (i = 0; i < numb.length; i++) {
       out.push(find(numb[i]));
     }
   }
   var word = '';
-  var j = 0;
-  // console.log(out);
   for (i = 0; i < statement.length; i++) {
-    if (isNaN(Number(statement[i]))) {
-      word = word + statement[i] + ' ';
+    if (out[i] !== undefined) {
+      word = word + statement[i] + out[i].trim();
     } else {
-      word = word + out[j].trim() + ' ';
-      // console.log("j: ",j)
-      j++;
+      word = word + statement[i];
     }
   }
-  // console.log(word);
+  word = word.replace('onest', 'first');
+  word = word.replace('twond', 'second');
+  word = word.replace('onest', 'first');
+  word = word.replace('threerd', 'third');
+  word = word.replace('fiveth', 'fifth');
+  word = word.replace('nineth', 'ninth');
   document.getElementById('output').innerHTML = word;
   return (word);
 }
 function find (text) {
   var tex = '';
   if (Number(text) === 0) {
-    // document.getElementById('output').innerHTML += ' zero';
     tex = 'zero';
-    // document.getElementById('output').innerHTML += '<br />' + tex;
     return tex;
   }
   if (text.length > 48) {
-    // document.getElementById('output').innerHTML += 'Out of Limit';
+    tex = 'Out of Limit';
     return tex;
   }
   var num = text;
-  // console.log( numb[i]);
   var j = 0;
   while (num.length > 0) {
     var ex = 0;
@@ -61,12 +54,10 @@ function find (text) {
       ex = 1;
     }
     var last = num.substr(num.length - 3 + ex);
-    // console.log( last);
     tex = convert(last, j) + tex;
     num = num.substr(0, num.length - 3);
     j++;
   }
-  // document.getElementById('output').innerHTML += '<br />' + tex;
   return tex;
 }
 function convert (last, j) {
@@ -102,101 +93,197 @@ function convert (last, j) {
   }
   return text;
 }
-var StringToNumb = function () {
-  this.Values = {
-    'zero': 0,
-    'one': 1,
-    'two': 2,
-    'three': 3,
-    'four': 4,
-    'five': 5,
-    'six': 6,
-    'seven': 7,
-    'eight': 8,
-    'nine': 9,
-    'ten': 10,
-    'eleven': 11,
-    'twelve': 12,
-    'thirteen': 13,
-    'fourteen': 14,
-    'fifteen': 15,
-    'sixteen': 16,
-    'seventeen': 17,
-    'eighteen': 18,
-    'nineteen': 19,
-    'twenty': 20,
-    'thirty': 30,
-    'forty': 40,
-    'fifty': 50,
-    'sixty': 60,
-    'seventy': 70,
-    'eighty': 80,
-    'ninety': 90
-  };
 
-  this.Multiply = {
-    'hundred': 1e2,
-    'thousand': 1e3,
-    'million': 1e6,
-    'billion': 1e9,
-    'trillion': 1e12,
-    'quadrillion': 1e15,
-    'quintillion': 1e18,
-    'sextillion': 1e21,
-    'septillion': 1e24,
-    'octillion': 1e27,
-    'nonillion': 1e30,
-    'decillion': 1e33,
-    'undecillion': 1e36,
-    'duodecillion': 1e39,
-    'tredecillion': 1e42,
-    'quattuordecillion': 1e45
-  };
+var Values = {
+  'zero': 0,
+  'one': 1,
+  'fisrt': 1,
+  'two': 2,
+  'three': 3,
+  'four': 4,
+  'five': 5,
+  'six': 6,
+  'seven': 7,
+  'eight': 8,
+  'nine': 9,
+  'ten': 10,
+  'eleven': 11,
+  'twelve': 12,
+  'thirteen': 13,
+  'fourteen': 14,
+  'fifteen': 15,
+  'sixteen': 16,
+  'seventeen': 17,
+  'eighteen': 18,
+  'nineteen': 19,
+  'twenty': 20,
+  'thirty': 30,
+  'forty': 40,
+  'fifty': 50,
+  'sixty': 60,
+  'seventy': 70,
+  'eighty': 80,
+  'ninety': 90
+};
 
-  this.number = [];
-  this.large = 0;
-  this.small = 0;
-  this.data = [];
+var Multiply = {
+  'hundred': 1e2,
+  'thousand': 1e3,
+  'million': 1e6,
+  'billion': 1e9,
+  'trillion': 1e12,
+  'quadrillion': 1e15,
+  'quintillion': 1e18,
+  'sextillion': 1e21,
+  'septillion': 1e24,
+  'octillion': 1e27,
+  'nonillion': 1e30,
+  'decillion': 1e33,
+  'undecillion': 1e36,
+  'duodecillion': 1e39,
+  'tredecillion': 1e42,
+  'quattuordecillion': 1e45,
+  'hundreds': '100s',
+  'thousands': '1000s',
+  'millions': '1000000s'
 };
-StringToNumb.prototype.clear = function () {
-  // console.log(this);
-  for (var i = 0; i < this.data.length; i++) {
-    if (this.Values.hasOwnProperty(this.data[i]) || this.Multiply.hasOwnProperty(this.data[i])) {
-      this.number.push(this.data[i]);
-    }
-  }
-};
-StringToNumb.prototype.conversion = function () {
-  for (var i = 0; i < this.number.length; i++) {
-    var each = this.number[i];
-    var val = this.Values[each];
-    if (val !== undefined) {
-      this.small = this.small + val;
-    } else if (each === 'hundred') {
-      this.small = this.small * 100;
-    } else {
-      val = this.Multiply[each];
-      if (val !== undefined) {
-        this.large = this.large + this.small * val;
-        this.small = 0;
-      }
-    }
-  }
-};
-StringToNumb.prototype.splitter = function (input) {
-  this.data = input.toLowerCase().split(/\s+/);
-};
+
+// var input = 'While I was standing today morning at my bus stop, i saw thousands of buses passed by without stoping at my stop. Then suddenly one taxi stopped with a number plate WB Twelve D nine eight seven two. Two passengers were already inside and I was the third luckiest one to get inside. I reached office at nine thirty today morning.';
+
+var large, small, input;
+var statement = [];
+var data = [];
+var dataOut = [];
 
 function convertIt (test) { // eslint-disable-line no-unused-vars
+  // input=document.getElementById('input2').value;
   if (test === undefined) {
-    var input = document.getElementById('input2').value;
+    input = document.getElementById('input2').value;
   } else {
     input = test;
   }
-  var StringToNumber = new StringToNumb();
-  StringToNumber.splitter(input);
-  StringToNumber.clear();
-  StringToNumber.conversion();
-  document.getElementById('output2').innerHTML = StringToNumber.large + StringToNumber.small;
-  return StringToNumber.large + StringToNumber.small;
+  var text1 = input.replace(/\./g, ' . ');
+  text1 = text1.replace(/;/g, ' ; ');
+  text1 = text1.replace(/-/g, ' - ');
+  text1 = text1.replace(/\//g, ' / ');
+  text1 = text1.replace(/\?/g, ' ? ');
+  text1 = text1.replace(/:/g, ' : ');
+  text1 = text1.replace(/"/g, ' " ');
+  text1 = text1.replace(/,/g, ' , ');
+  text1 = text1.replace(/@/g, ' @ ');
+
+  var ans = text1.split(/\s+/);
+  statement = [];
+  data = [];
+  dataOut = [];
+  extraction(ans);
+  large = 0;
+  small = 0;
+  // console.log(statement);
+  // console.log(data);
+  for (var i = 0; i < data.length; i++) {
+    var dsplit = data[i].toLowerCase().split(/\s+/);
+    // console.log(dsplit);
+    /* var j=0;
+      var texz="";
+      while(j<dsplit.length)
+      {
+        if(values[j]!==undefined && values[j+1]!==undefined)
+        {
+          if(values[j].toString().length<=values[j+1].toString().length)
+          conversion(dsplit[i]);
+          texz+=(large+small).toString();
+          j++;
+
+        }
+      } */
+    dsplit.forEach(conversion);
+    dataOut.push(large + small);
+    // console.log(large+small);
+    large = 0;
+    small = 0;
+  }
+  var word = '';
+  var len = statement.length > dataOut.length ? statement.length : dataOut.length;
+  for (i = 0; i < len; i++) {
+    if (dataOut[i] !== undefined && statement[i] !== undefined) {
+      word = word + statement[i] + dataOut[i] + ' ';
+    } else if (dataOut[i] !== undefined) {
+      word = word + dataOut[i];
+    } else {
+      word = word + statement[i];
+    }
+  }
+  // console.log(word);
+
+  document.getElementById('output2').innerHTML = word;
+  return word;
+}
+
+function conversion (each) {
+  var val = Values[each];
+  if (val !== undefined) {
+    small = small + val;
+  } else if (each === 'hundred') {
+    small = small * 100;
+  } else {
+    val = Multiply[each];
+    if (val !== undefined && (typeof val) === 'number') {
+      large = large + small * val;
+      small = 0;
+    } else if ((typeof val) === 'string') {
+      large = val;
+      small = '';
+    }
+  }
+}
+function extraction (ans) {
+  var words = '';
+  var dats = '';
+  var j = 0;
+  var k = 0;
+  var i = 0;
+  while (i < ans.length) {
+    if (Values[ans[i].toLowerCase()] !== undefined || Multiply[ans[i].toLowerCase()] !== undefined /* || (ans[i]==='and' && Values[ans[i+1]]!==undefined) */) {
+      if (k === 0) {
+        if (words !== '') {
+          statement.push(words);
+          words = '';
+          j = 0;
+        }
+        if (i === 0) {
+          statement.push('');
+        }
+        dats += ans[i] + ' ';
+        k++;
+        i++;
+      } else {
+        dats += ans[i] + ' ';
+        k++;
+        i++;
+      }
+    } else {
+      if (j === 0) {
+        if (dats !== '') {
+          data.push(dats);
+          dats = '';
+          k = 0;
+        }
+        words += ans[i] + ' ';
+        j++;
+        i++;
+      } else {
+        words += ans[i] + ' ';
+        j++;
+        i++;
+      }
+    }
+  }
+  if (words !== '') {
+    statement.push(words);
+    words = '';
+  }
+  if (dats !== '') {
+    data.push(dats);
+  }
 }
